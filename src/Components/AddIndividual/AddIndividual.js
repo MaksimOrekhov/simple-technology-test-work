@@ -27,38 +27,27 @@ class AddIndividual extends Component {
     this.setState({
       name: e.target.value,
       nameError: false
-    })
+    });
+
+    // валидация первой буквы имени и валидация на кириллицу
+    let name = this.state.name;
+    let nameLetters = name.split('');
+    if (this.state.name === '' || nameLetters[0].toUpperCase() !== nameLetters[0] || this.state.name.search(/[а-яё]/i) < 0) {
+      this.setState({
+        nameError: true
+      })
+    } else {
+      this.setState({
+        nameError: false
+      })
+    }
   }
 
   lastNameValue = (e) => {
     this.setState({
       lastName: e.target.value,
       lastNameError: false
-    })
-  }
-
-  middleNameValue = (e) => {
-    this.setState({
-      middleName: e.target.value,
-      middleNameError: false
-    })
-  }
-
-  addIndividual = (e) => {
-    e.preventDefault();
-    this.setState({
-      error: false
-    })
-    // валидация даты
-    let today = new Date()
-    let currentYear = today.getFullYear();
-    let date = this.state.date;
-    let birthYear = date.split("-");
-    if (birthYear[0] >= (currentYear - 18)) {
-      this.setState({
-        error: true
-      })
-    }
+    });
 
     // валидация первой буквы имени и валидация на кириллицу
     let lastName = this.state.lastName;
@@ -72,19 +61,15 @@ class AddIndividual extends Component {
         lastNameError: false
       })
     }
+  }
 
-    let name = this.state.name;
-    let nameLetters = name.split('');
-    if (this.state.name === '' || nameLetters[0].toUpperCase() !== nameLetters[0] || this.state.name.search(/[а-яё]/i) < 0) {
-      this.setState({
-        nameError: true
-      })
-    } else {
-      this.setState({
-        nameError: false
-      })
-    }
+  middleNameValue = (e) => {
+    this.setState({
+      middleName: e.target.value,
+      middleNameError: false
+    });
 
+    // валидация первой буквы имени и валидация на кириллицу
     let middleName = this.state.middleName;
     let middleNameLetters = middleName.split('');
     if (this.state.middleName === '' || middleNameLetters[0].toUpperCase() !== middleNameLetters[0] || this.state.middleName.search(/[а-яё]/i) < 0) {
@@ -96,14 +81,50 @@ class AddIndividual extends Component {
         middleNameError: false
       })
     }
-    
+  }
+
+  addIndividual = (e) => {
+    e.preventDefault();
+    // валидация даты и проверка на пустые поля
+    let today = new Date()
+    let currentYear = today.getFullYear();
+    let date = this.state.date;
+    let birthYear = date.split("-");
+    if (birthYear[0] >= (currentYear - 18)) {
+      this.setState({
+        error: true
+      });
+    } else if (this.state.lastName === '') {
+      this.setState({
+        lastNameError: true
+      })
+    } else if (this.state.name === '') {
+      this.setState({
+        nameError: true
+      })
+    } else if (this.state.middleName === '') {
+      this.setState({
+        middleNameError: true
+      })
+    } else {
+      this.props.closeAddIndividual();
+      let data = {
+        "natural__person": {
+          "lastName": this.state.lastName,
+          "name": this.state.name,
+          "middleName": this.state.middleName,
+          "birthDate": this.state.date
+        }
+      }
+      console.log(JSON.stringify(data, ["natural__person", "lastName", "name", "middleName", "birthDate"]))
+    }
   }
 
   render() {
     return (
       <div className={this.props.showAddIndividual ? "add-individual__wrapper" : "add-individual__wrapper-hidden"}>
        <div className="add-individual__title">Добавление физ лица</div>
-       <form className="add__form">
+       <form className="add__form" method="GET">
         <label className="add__form-label" htmlFor="last__name">
           <span className="add__form-label__title">Фамилия</span>
           <input className={this.state.lastNameError ? "error" : "last__name"} id="last__name" placeholder="Фамилия" onChange={this.lastNameValue}/>
@@ -114,14 +135,14 @@ class AddIndividual extends Component {
         </label>
         <label className="add__form-label" htmlFor="middle__name">
           <span className="add__form-label__title">Отчество</span>
-          <input id="middle__name" className={this.state.middleNameError ? "error" : "middle__name"} placeholder="Отчество" onChange={this.middleNameValue}/>
+          <input name="middleName" id="middle__name" className={this.state.middleNameError ? "error" : "middle__name"} placeholder="Отчество" onChange={this.middleNameValue}/>
         </label>
         <label className="add__form-label" htmlFor="birth__date">
           <span className="add__form-label__title">Дата рождения</span>
           <input className={this.state.error ? "error" : "birth__date"} id="birth__date" type="date" onChange={this.dateValue}/>
         </label>
         <div className={this.state.error ? "error__visible" : "error__hidden"}>Вы должны быть старше 18 лет</div>
-        <button onClick={this.addIndividual}>Сохранить</button>
+        <button onClick={this.addIndividual} type="submit">Сохранить</button>
        </form>
       </div>
     )

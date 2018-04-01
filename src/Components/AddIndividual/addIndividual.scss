@@ -1,4 +1,6 @@
 .add-individual__wrapper {
+  width: 500px;
+  margin: 20px auto;
   display: flex;
   border: 1px solid #000;
   flex-direction: column;
@@ -29,8 +31,15 @@
   }
 }
 
+.last__name,
+.name,
+.middle__name {
+  outline: none;
+}
+
 .error {
   border-color: red;
+  outline: none;
 }
 
 .error__hidden {

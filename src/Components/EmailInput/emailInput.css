@@ -9,10 +9,14 @@
   position: relative; }
 
 .email-input {
-  position: relative; }
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; }
 
 .email {
-  position: relative; }
+  position: relative;
+  outline: none; }
 
 .email-input__title:after {
   content: "";
@@ -23,7 +27,7 @@
   width: 0;
   height: 0;
   position: absolute;
-  right: -90%;
+  right: -190%;
   top: 50%;
   z-index: 50;
   margin-left: -24px; }
@@ -31,7 +35,7 @@
 .email-new {
   font-size: 14px;
   position: absolute;
-  left: 48%;
+  left: 63%;
   top: 146%;
   display: block;
   width: 162px;

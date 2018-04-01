@@ -4,6 +4,14 @@
   .name-input__wrapper-hidden {
     display: none; }
 
+.name-input {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; }
+
+.name-input__title-wrapper {
+  display: inline-block; }
+
 .input__title {
   display: inline-block;
   margin-right: 20px; }
