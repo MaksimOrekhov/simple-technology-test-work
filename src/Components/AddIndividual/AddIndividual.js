@@ -61,21 +61,9 @@ class AddIndividual extends Component {
     }
 
     // валидация первой буквы имени и валидация на кириллицу
-    let name = this.state.name;
-    let nameLetters = name.split('');
-    if (nameLetters[0].toUpperCase() !== nameLetters[0] || this.state.name.search(/[а-яё]/i) < 0) {
-      this.setState({
-        nameError: true
-      })
-    } else {
-      this.setState({
-        nameError: false
-      })
-    }
-
     let lastName = this.state.lastName;
     let lastNameLetters = lastName.split('');
-    if (lastNameLetters[0].toUpperCase() !== lastNameLetters[0] || this.state.lastName.search(/[а-яё]/i) < 0) {
+    if (this.state.lastName === '' || lastNameLetters[0].toUpperCase() !== lastNameLetters[0] || this.state.lastName.search(/[а-яё]/i) < 0) {
       this.setState({
         lastNameError: true
       })
@@ -85,9 +73,21 @@ class AddIndividual extends Component {
       })
     }
 
+    let name = this.state.name;
+    let nameLetters = name.split('');
+    if (this.state.name === '' || nameLetters[0].toUpperCase() !== nameLetters[0] || this.state.name.search(/[а-яё]/i) < 0) {
+      this.setState({
+        nameError: true
+      })
+    } else {
+      this.setState({
+        nameError: false
+      })
+    }
+
     let middleName = this.state.middleName;
     let middleNameLetters = middleName.split('');
-    if (middleNameLetters[0].toUpperCase() !== middleNameLetters[0] || this.state.middleName.search(/[а-яё]/i) < 0) {
+    if (this.state.middleName === '' || middleNameLetters[0].toUpperCase() !== middleNameLetters[0] || this.state.middleName.search(/[а-яё]/i) < 0) {
       this.setState({
         middleNameError: true
       })

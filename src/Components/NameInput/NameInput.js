@@ -8,13 +8,8 @@ class NameInput extends Component {
     }
   }
 
-  handleNameChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({
-      [name]: value},
-      () => { this.validateField(name, value) }
-    );
+  handleNameChange = (val) => {
+    this.props.nameChange(val)
   }
   
   render() {
@@ -25,7 +20,7 @@ class NameInput extends Component {
           <span className="name-input__title">Наименование </span>
           <span className={this.props.showProductRole ? "input__title" : "input__title-hidden"}>товара</span>
           <span className={this.props.showServiceRole ? "input__title" : "input__title-hidden"}>услуги</span>
-          <input type="text" id="name-input" onChange={this.handleNameChange}/>
+          <input type="text" id="name-input" onChange={this.handleNameChange} className={this.props.nameError ? "error" : "name"}/>
         </label>
       </div>
     )
