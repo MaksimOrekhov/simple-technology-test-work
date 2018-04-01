@@ -1,0 +1,11 @@
+.deal-type {
+  &__wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+}
+
+.radio__title {
+  margin-left: 10px;
+}

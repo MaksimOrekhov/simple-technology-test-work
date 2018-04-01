@@ -1,0 +1,19 @@
+.individual__wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.individual__wrapper-hidden {
+  display: none;
+}
+
+.individual {
+  &__title {
+    margin-bottom: 20px;
+  }
+  &__select {
+    margin-bottom: 20px;
+  }
+}

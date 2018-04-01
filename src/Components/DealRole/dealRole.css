@@ -1,0 +1,12 @@
+.deal-role__wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px; }
+
+.deal-role__wrapper-hidden {
+  display: none; }
+
+.radio__title {
+  display: inline-block; }
+  .radio__title-hidden {
+    display: none; }

@@ -1,0 +1,11 @@
+.email-input__wrapper {
+  display: flex;
+  margin-bottom: 30px;
+  &-hidden {
+    display: none;
+  }
+}
+
+.email-input__title {
+  margin-right: 20px;
+}

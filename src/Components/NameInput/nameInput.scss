@@ -1,0 +1,15 @@
+.name-input__wrapper {
+  display: flex;
+  margin-bottom: 30px;
+  &-hidden {
+    display: none;
+  }
+}
+
+.input__title {
+  display: inline-block;
+  margin-right: 20px;
+  &-hidden {
+    display: none;
+  }
+}
