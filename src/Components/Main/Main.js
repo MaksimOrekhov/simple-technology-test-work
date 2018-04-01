@@ -22,7 +22,15 @@ class Main extends Component {
       nameError: false,
       email: '',
       emailError: false,
-      showMessage: false
+      showMessage: false,
+      customer: false,
+      contractor: false,
+      product: false,
+      service: false,
+      lastName: '',
+      individualName: '',
+      middleName: '',
+      date: ''
     }
   }
 
@@ -73,6 +81,58 @@ class Main extends Component {
     })
   }
 
+  customerChecked = (e) => {
+    this.setState({
+      customer: true,
+      contractor: false
+    })
+  }
+
+  contractorChecked = (e) => {
+    this.setState({
+      customer: false,
+      contractor: true
+    })
+  }
+
+  productChecked = (e) => {
+    this.setState({
+      product: true,
+      service: false
+    })
+  }
+
+  serviceChecked = (e) => {
+    this.setState({
+      product: false,
+      service: true
+    })
+  }
+
+  lastNameValue = (e) => {
+    this.setState({
+      lastName: e.target.value
+    })
+  }
+
+  nameValue = (e) => {
+    this.setState({
+      individualName: e.target.value
+    })
+  }
+
+  middleNameValue = (e) => {
+    this.setState({
+      middleName: e.target.value
+    })
+  }
+
+  dateValue = (e) => {
+    this.setState({
+      date: e.target.value
+    })
+  }
+
   submitForm = (e) => {
     e.preventDefault();
     // валидация наименования товара/услуги
@@ -104,6 +164,31 @@ class Main extends Component {
         })
       }, 2500);
     }
+
+    let data = {
+      "DATA": {
+        "DEAL": {
+          "TYPE": {
+            "product": this.state.product,
+            "service": this.state.service
+          },
+          "ROLE": {
+            "customer": this.state.customer,
+            "contractor": this.state.contractor
+          },
+          "NAME": this.state.name,
+          "EMAIL": this.state.email
+        },
+        "NATURAL_PERSON": {
+          "last_name": this.state.lastName,
+          "person_name": this.state.individualName,
+          "middle_name": this.state.middleName,
+          "birth_date": this.state.date
+        }
+      }
+    }
+    console.log(JSON.stringify(data, ["DATA", "DEAL", "TYPE", "product", "service", "ROLE", "customer", "contractor", "NAME", "EMAIL", "NATURAL_PERSON", "last_name", "person_name", "middle_name", "birth_date"]))
+
   }
 
   
@@ -114,13 +199,13 @@ class Main extends Component {
          <div className="main__title">Создание сделки</div>
          <div className="close__button" onClick={this.closeDeal}>X</div>
          <form className="deal__form" method="post">
-          <DealType displayProductRole={this.displayProductRole} displayServiceRole={this.displayServiceRole}/>
-          <DealRole showRole={this.state.showRole} showProductRole={this.state.showProductRole} showServiceRole={this.state.showServiceRole}/>
+          <DealType displayProductRole={this.displayProductRole} displayServiceRole={this.displayServiceRole} productChecked={this.productChecked} serviceChecked={this.serviceChecked}/>
+          <DealRole showRole={this.state.showRole} showProductRole={this.state.showProductRole} showServiceRole={this.state.showServiceRole} customerChecked={this.customerChecked} contractorChecked={this.contractorChecked}/>
           <NameInput showRole={this.state.showRole} showProductRole={this.state.showProductRole} showServiceRole={this.state.showServiceRole} nameChange={this.nameChange} nameError={this.state.nameError}/>
           <EmailInput showRole={this.state.showRole} emailChange={this.emailChange} emailError={this.state.emailError} showMessage={this.state.showMessage}/>
           <Individual showRole={this.state.showRole} showAddIndividual={this.showAddIndividual}/>
           {ReactDOM.createPortal(
-            <AddIndividual showAddIndividual={this.state.showAddIndividual} closeAddIndividual={this.closeAddIndividual}/>,
+            <AddIndividual showAddIndividual={this.state.showAddIndividual} closeAddIndividual={this.closeAddIndividual} lastNameValue={this.lastNameValue} middleNameValue={this.middleNameValue} nameValue={this.nameValue} dateValue={this.dateValue}/>,
             document.getElementById('portal')
           )}
           <button className="submit__button" type="submit" onClick={this.submitForm}>Создать</button>

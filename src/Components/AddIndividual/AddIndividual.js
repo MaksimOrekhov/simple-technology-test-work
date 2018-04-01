@@ -20,7 +20,8 @@ class AddIndividual extends Component {
     this.setState({
       date: e.target.value,
       error: false
-    })
+    });
+    this.props.dateValue(e)
   }
 
   nameValue = (e) => {
@@ -39,7 +40,8 @@ class AddIndividual extends Component {
     } else {
       this.setState({
         nameError: false
-      })
+      });
+      this.props.nameValue(e)
     }
   }
 
@@ -59,7 +61,8 @@ class AddIndividual extends Component {
     } else {
       this.setState({
         lastNameError: false
-      })
+      });
+      this.props.lastNameValue(e);
     }
   }
 
@@ -79,7 +82,8 @@ class AddIndividual extends Component {
     } else {
       this.setState({
         middleNameError: false
-      })
+      });
+      this.props.middleNameValue(e);
     }
   }
 
@@ -93,7 +97,8 @@ class AddIndividual extends Component {
     if (birthYear[0] >= (currentYear - 18)) {
       this.setState({
         error: true
-      });
+      })
+      
     } else if (this.state.lastName === '') {
       this.setState({
         lastNameError: true
@@ -108,15 +113,6 @@ class AddIndividual extends Component {
       })
     } else {
       this.props.closeAddIndividual();
-      let data = {
-        "natural__person": {
-          "lastName": this.state.lastName,
-          "name": this.state.name,
-          "middleName": this.state.middleName,
-          "birthDate": this.state.date
-        }
-      }
-      console.log(JSON.stringify(data, ["natural__person", "lastName", "name", "middleName", "birthDate"]))
     }
   }
 
