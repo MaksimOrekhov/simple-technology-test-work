@@ -27,6 +27,7 @@ class Main extends Component {
       contractor: false,
       product: false,
       service: false,
+      select: '',
       lastName: '',
       individualName: '',
       middleName: '',
@@ -133,6 +134,12 @@ class Main extends Component {
     })
   }
 
+  selectChange = (e) => {
+    this.setState({
+      select: e.target.value
+    })
+  }
+
   submitForm = (e) => {
     e.preventDefault();
     // валидация наименования товара/услуги
@@ -163,31 +170,32 @@ class Main extends Component {
           showMessage: false
         })
       }, 2500);
-    }
 
-    let data = {
-      "DATA": {
-        "DEAL": {
-          "TYPE": {
-            "product": this.state.product,
-            "service": this.state.service
+      let data = {
+        "DATA": {
+          "DEAL": {
+            "TYPE": {
+              "product": this.state.product,
+              "service": this.state.service
+            },
+            "ROLE": {
+              "customer": this.state.customer,
+              "contractor": this.state.contractor
+            },
+            "NAME": this.state.name,
+            "EMAIL": this.state.email,
+            "SELECT": this.state.select
           },
-          "ROLE": {
-            "customer": this.state.customer,
-            "contractor": this.state.contractor
-          },
-          "NAME": this.state.name,
-          "EMAIL": this.state.email
-        },
-        "NATURAL_PERSON": {
-          "last_name": this.state.lastName,
-          "person_name": this.state.individualName,
-          "middle_name": this.state.middleName,
-          "birth_date": this.state.date
+          "NATURAL_PERSON": {
+            "last_name": this.state.lastName,
+            "person_name": this.state.individualName,
+            "middle_name": this.state.middleName,
+            "birth_date": this.state.date
+          }
         }
       }
+      console.log(JSON.stringify(data, ["DATA", "DEAL", "TYPE", "product", "service", "ROLE", "customer", "contractor", "NAME", "EMAIL", "SELECT", "NATURAL_PERSON", "last_name", "person_name", "middle_name", "birth_date"]))
     }
-    console.log(JSON.stringify(data, ["DATA", "DEAL", "TYPE", "product", "service", "ROLE", "customer", "contractor", "NAME", "EMAIL", "NATURAL_PERSON", "last_name", "person_name", "middle_name", "birth_date"]))
 
   }
 
@@ -203,7 +211,7 @@ class Main extends Component {
           <DealRole showRole={this.state.showRole} showProductRole={this.state.showProductRole} showServiceRole={this.state.showServiceRole} customerChecked={this.customerChecked} contractorChecked={this.contractorChecked}/>
           <NameInput showRole={this.state.showRole} showProductRole={this.state.showProductRole} showServiceRole={this.state.showServiceRole} nameChange={this.nameChange} nameError={this.state.nameError}/>
           <EmailInput showRole={this.state.showRole} emailChange={this.emailChange} emailError={this.state.emailError} showMessage={this.state.showMessage}/>
-          <Individual showRole={this.state.showRole} showAddIndividual={this.showAddIndividual}/>
+          <Individual showRole={this.state.showRole} showAddIndividual={this.showAddIndividual} selectChange={this.selectChange}/>
           {ReactDOM.createPortal(
             <AddIndividual showAddIndividual={this.state.showAddIndividual} closeAddIndividual={this.closeAddIndividual} lastNameValue={this.lastNameValue} middleNameValue={this.middleNameValue} nameValue={this.nameValue} dateValue={this.dateValue}/>,
             document.getElementById('portal')
