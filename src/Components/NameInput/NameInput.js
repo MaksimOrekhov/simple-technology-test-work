@@ -2,12 +2,6 @@ import React, {Component} from 'react'
 
 class NameInput extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
-
   handleNameChange = (val) => {
     this.props.nameChange(val)
   }

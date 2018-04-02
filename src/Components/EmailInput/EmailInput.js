@@ -3,12 +3,6 @@ import React, {Component} from 'react'
 
 class EmailInput extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
-
   handleEmailChange = (val) => {
     this.props.emailChange(val)
   }
