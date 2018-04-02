@@ -40,5 +40,6 @@
     "start-js": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "homepage" : "https://maksimorekhov.github.io/simple-technology-test-work/build"
 }
