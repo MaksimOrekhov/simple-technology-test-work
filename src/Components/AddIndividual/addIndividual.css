@@ -6,7 +6,8 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
-  padding: 25px 0; }
+  padding: 25px 0;
+  position: relative; }
 
 .add-individual__wrapper-hidden {
   display: none; }
@@ -28,7 +29,8 @@
 .last__name,
 .name,
 .middle__name {
-  outline: none; }
+  outline: none;
+  border-color: green; }
 
 .error {
   border-color: red;

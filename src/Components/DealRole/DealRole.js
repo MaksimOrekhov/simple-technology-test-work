@@ -2,6 +2,13 @@ import React, {Component} from 'react'
 
 class DealRole extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: true
+    }
+  }
+
   customerChecked = (e) => {
     this.props.customerChecked(e)
   }
@@ -12,10 +19,10 @@ class DealRole extends Component {
 
   render() {
     return (
-      <div className={this.props.showRole ? "deal-role__wrapper" : "deal-role__wrapper-hidden"}>
+      <div className="deal-role__wrapper">
         <div>Ваша роль в сделке</div>
         <label htmlFor="customer">
-          <input type="radio" id="customer" name="deal__role" onChange={this.customerChecked}/>
+          <input type="radio" id="customer" name="deal__role" onChange={this.customerChecked} defaultChecked={this.state.checked}/>
           <span className={this.props.showProductRole ? "radio__title" : "radio__title-hidden"}>покупатель</span>
           <span className={this.props.showServiceRole ? "radio__title" : "radio__title-hidden"}>заказчик</span>
         </label>

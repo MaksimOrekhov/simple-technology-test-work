@@ -12,6 +12,9 @@
 .name-input__title-wrapper {
   display: inline-block; }
 
+.name-validate {
+  border-color: green; }
+
 .input__title {
   display: inline-block;
   margin-right: 20px; }

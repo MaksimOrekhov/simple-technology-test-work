@@ -2,19 +2,22 @@ import React, {Component} from 'react'
 
 class Individual extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+  
   selectChange = (e) => {
     this.props.selectChange(e)
   }
 
   render() {
     return (
-      <div className={this.props.showRole ? "individual__wrapper" : "individual__wrapper-hidden"}>
+      <div className="individual__wrapper">
        <div className="individual__title">Укажите кем Вы являетесь в сделке</div>
        <select className="individual__select" onChange={this.selectChange}>
-        <option label="Ранее использованное"></option>
-        <option>Физ лицо №1</option>
-        <option>Физ лицо №2</option>
-        <option>Физ лицо №3</option>
+       {this.props.lastNames.map((lastName, index) => <option key={index}>{lastName.lastName}</option>)}
        </select>
        <button onClick={this.props.showAddIndividual}>Добавить физ лицо</button>
       </div>

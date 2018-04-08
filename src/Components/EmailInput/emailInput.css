@@ -16,7 +16,8 @@
 
 .email {
   position: relative;
-  outline: none; }
+  outline: none;
+  border-color: green; }
 
 .email-input__title:after {
   content: "";

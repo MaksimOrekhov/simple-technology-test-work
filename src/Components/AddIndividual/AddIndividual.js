@@ -1,145 +1,75 @@
 import React, {Component} from 'react'
+import IndividualLastName from '../IndividualLastName/IndividualLastName'
+import IndividualName from '../IndividualName/IndividualName'
+import IndividualMiddleName from '../IndividualMiddleName/IndividualMiddleName'
+import IndividualBirthDate from '../IndividualBirthDate/IndividualBirthDate'
 
 class AddIndividual extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      date: '',
-      error: false,
       nameError: false,
       lastNameError: false,
       middleNameError: false,
       name: '',
       lastName: '',
-      middleName: ''
+      middleName: '',
+      errorBirthDate: false
     }
   }
 
-  dateValue = (e) => {
+  errorBirthDate = () => {
     this.setState({
-      date: e.target.value,
-      error: false
-    });
-    this.props.dateValue(e)
+      errorBirthDate: true
+    })
   }
 
-  nameValue = (e) => {
+  validatedBirthDate = () => {
     this.setState({
-      name: e.target.value,
-      nameError: false
-    });
-
-    // валидация первой буквы имени и валидация на кириллицу
-    let name = this.state.name;
-    let nameLetters = name.split('');
-    if (this.state.name === '' || nameLetters[0].toUpperCase() !== nameLetters[0] || this.state.name.search(/[а-яё]/i) < 0) {
-      this.setState({
-        nameError: true
-      })
-    } else {
-      this.setState({
-        nameError: false
-      });
-      this.props.nameValue(e)
-    }
-  }
-
-  lastNameValue = (e) => {
-    this.setState({
-      lastName: e.target.value,
-      lastNameError: false
-    });
-
-    // валидация первой буквы имени и валидация на кириллицу
-    let lastName = this.state.lastName;
-    let lastNameLetters = lastName.split('');
-    if (this.state.lastName === '' || lastNameLetters[0].toUpperCase() !== lastNameLetters[0] || this.state.lastName.search(/[а-яё]/i) < 0) {
-      this.setState({
-        lastNameError: true
-      })
-    } else {
-      this.setState({
-        lastNameError: false
-      });
-      this.props.lastNameValue(e);
-    }
-  }
-
-  middleNameValue = (e) => {
-    this.setState({
-      middleName: e.target.value,
-      middleNameError: false
-    });
-
-    // валидация первой буквы имени и валидация на кириллицу
-    let middleName = this.state.middleName;
-    let middleNameLetters = middleName.split('');
-    if (this.state.middleName === '' || middleNameLetters[0].toUpperCase() !== middleNameLetters[0] || this.state.middleName.search(/[а-яё]/i) < 0) {
-      this.setState({
-        middleNameError: true
-      })
-    } else {
-      this.setState({
-        middleNameError: false
-      });
-      this.props.middleNameValue(e);
-    }
+      errorBirthDate: false
+    })
   }
 
   addIndividual = (e) => {
     e.preventDefault();
-    // валидация даты и проверка на пустые поля
-    let today = new Date()
-    let currentYear = today.getFullYear();
-    let date = this.state.date;
-    let birthYear = date.split("-");
-    if (birthYear[0] >= (currentYear - 18)) {
-      this.setState({
-        error: true
-      })
-      
-    } else if (this.state.lastName === '') {
+    // проверка на пустые поля
+    if (this.props.lastName === '') {
       this.setState({
         lastNameError: true
       })
-    } else if (this.state.name === '') {
+    } else if (this.props.individualName === '') {
       this.setState({
         nameError: true
       })
-    } else if (this.state.middleName === '') {
+    } else if (this.props.middleName === '') {
       this.setState({
         middleNameError: true
       })
+    } else if (this.state.errorBirthDate === true) {
+      return;
     } else {
       this.props.closeAddIndividual();
-    }
+      this.props.sendName();
+      this.props.sendLastName();
+      this.props.sendMiddleName();
+      this.props.sendBirthDate();
+    };
+
   }
 
   render() {
     return (
       <div className={this.props.showAddIndividual ? "add-individual__wrapper" : "add-individual__wrapper-hidden"}>
-       <div className="add-individual__title">Добавление физ лица</div>
-       <form className="add__form" method="GET">
-        <label className="add__form-label" htmlFor="last__name">
-          <span className="add__form-label__title">Фамилия</span>
-          <input className={this.state.lastNameError ? "error" : "last__name"} id="last__name" placeholder="Фамилия" onChange={this.lastNameValue}/>
-        </label>
-        <label className="add__form-label" htmlFor="name">
-          <span className="add__form-label__title">Имя</span>
-          <input id="name" className={this.state.nameError ? "error" : "name"} placeholder="Имя" onChange={this.nameValue}/>
-        </label>
-        <label className="add__form-label" htmlFor="middle__name">
-          <span className="add__form-label__title">Отчество</span>
-          <input name="middleName" id="middle__name" className={this.state.middleNameError ? "error" : "middle__name"} placeholder="Отчество" onChange={this.middleNameValue}/>
-        </label>
-        <label className="add__form-label" htmlFor="birth__date">
-          <span className="add__form-label__title">Дата рождения</span>
-          <input className={this.state.error ? "error" : "birth__date"} id="birth__date" type="date" onChange={this.dateValue}/>
-        </label>
-        <div className={this.state.error ? "error__visible" : "error__hidden"}>Вы должны быть старше 18 лет</div>
+        <div className="close__button" onClick={this.props.closeAddIndividual}>X</div>
+        <div className="add-individual__title">Добавление физ лица</div>
+        <div className="add__form">
+        <IndividualLastName lastNameValue={this.props.lastNameValue}/>
+        <IndividualName nameValue={this.props.nameValue}/>
+        <IndividualMiddleName middleNameValue={this.props.middleNameValue}/>
+        <IndividualBirthDate dateValue={this.props.dateValue} errorBirthDate={this.errorBirthDate} validatedBirthDate={this.validatedBirthDate}/>
         <button onClick={this.addIndividual} type="submit">Сохранить</button>
-       </form>
+        </div>
       </div>
     )
   }

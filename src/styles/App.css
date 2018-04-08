@@ -416,7 +416,7 @@ template {
   font-display: fallback; }
 
 .wrapper {
-  width: 500px;
+  width: 550px;
   margin: 20px auto;
   display: flex;
   flex-direction: column;
@@ -484,6 +484,9 @@ template {
 .name-input__title-wrapper {
   display: inline-block; }
 
+.name-validate {
+  border-color: green; }
+
 .input__title {
   display: inline-block;
   margin-right: 20px; }
@@ -508,7 +511,8 @@ template {
 
 .email {
   position: relative;
-  outline: none; }
+  outline: none;
+  border-color: green; }
 
 .email-input__title:after {
   content: "";
@@ -566,7 +570,8 @@ template {
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
-  padding: 25px 0; }
+  padding: 25px 0;
+  position: relative; }
 
 .add-individual__wrapper-hidden {
   display: none; }
@@ -588,7 +593,8 @@ template {
 .last__name,
 .name,
 .middle__name {
-  outline: none; }
+  outline: none;
+  border-color: green; }
 
 .error {
   border-color: red;

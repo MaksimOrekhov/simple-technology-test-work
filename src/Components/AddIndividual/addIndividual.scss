@@ -7,6 +7,7 @@
   align-items: center;
   margin-bottom: 30px;
   padding: 25px 0;
+  position: relative;
 }
 
 .add-individual__wrapper-hidden {
@@ -35,6 +36,7 @@
 .name,
 .middle__name {
   outline: none;
+  border-color: green;
 }
 
 .error {
