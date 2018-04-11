@@ -1,12 +1,6 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-class Individual extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
+class IndividualSelect extends React.Component {
   
   selectChange = (e) => {
     this.props.selectChange(e)
@@ -25,4 +19,4 @@ class Individual extends Component {
   }
 }
 
-export default Individual
+export default IndividualSelect

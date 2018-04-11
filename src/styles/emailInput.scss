@@ -6,6 +6,10 @@
   }
 }
 
+.email {
+  border-color: inherit !important;
+}
+
 .email-input__title {
   margin-right: 20px;
   position: relative;
@@ -18,7 +22,7 @@
   justify-content: space-between;
 }
 
-.email {
+.email-valid {
   position: relative;
   outline: none;
   border-color: green;

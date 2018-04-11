@@ -1,22 +1,23 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-class IndividualBirthDate extends Component {
+class IndividualBirthDate extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      date: ' ',
+      date: '',
       error: false // вывод сообщения о необходимости быть старше 18 лет
     }
   }
 
   dateValue = (e) => {
+    console.log(this.state.date)
     this.setState({
       date: e.target.value,
       error: false
     });
     this.props.dateValue(e);
-    // валидация даты и проверка 
+    // валидация даты
     let today = new Date()
     let currentYear = today.getFullYear();
     let date = this.state.date;

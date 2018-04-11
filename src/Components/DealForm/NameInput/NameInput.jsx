@@ -1,6 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react';
+import classNames from 'classnames'
 
-class NameInput extends Component {
+class NameInput extends React.Component {
 
   constructor(props) {
     super(props);
@@ -32,6 +33,12 @@ class NameInput extends Component {
   
   render() {
 
+    let inputClasses = classNames({
+      "error": this.state.nameError === true,
+      "name-validate": this.state.nameError === false,
+      "name": this.state.name === ''
+    })
+
     return (
       <div className="name-input__wrapper">
         <label className="name-input" htmlFor="name-input">
@@ -40,7 +47,7 @@ class NameInput extends Component {
             <span className={this.props.showProductRole ? "input__title" : "input__title-hidden"}>товара</span>
             <span className={this.props.showServiceRole ? "input__title" : "input__title-hidden"}>услуги</span>
           </div>
-          <input type="text" id="name-input" onChange={this.handleInput} className={this.state.nameError ? "error" : "name-validate"}/>
+          <input type="text" id="name-input" onChange={this.handleInput} className={inputClasses}/>
         </label>
       </div>
     )

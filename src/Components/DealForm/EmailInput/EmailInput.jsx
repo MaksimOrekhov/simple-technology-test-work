@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react';
+import classNames from 'classnames';
 
 
-class EmailInput extends Component {
+class EmailInput extends React.Component {
 
   constructor(props) {
     super(props);
@@ -39,11 +40,18 @@ class EmailInput extends Component {
 }
 
   render() {
+
+    let inputClasses = classNames({
+      "error": this.state.emailError === true,
+      "email-valid": this.state.emailError === false,
+      "email": this.state.email === ''
+    })
+
     return (
       <div className="email-input__wrapper">
         <label className="email-input" htmlFor="email-input">
           <span className="email-input__title">Email контрагента </span>
-          <input type="text" id="email-input" placeholder="example@email.com" onChange={this.handleInput} className={this.state.emailError ? "error" : "email"}/>
+          <input type="text" id="email-input" placeholder="example@email.com" onChange={this.handleInput} className={inputClasses}/>
           <div className={this.state.showMessage ? "email-new" : "email-new__hidden"}>Email нет в базе. Вам будет выслано приглашение.</div>
         </label>
       </div>

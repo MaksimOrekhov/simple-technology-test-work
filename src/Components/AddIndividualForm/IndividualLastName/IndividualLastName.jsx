@@ -1,6 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react';
+import classNames from 'classnames';
 
-class IndividualLastName extends Component {
+class IndividualLastName extends React.Component {
 
   constructor(props) {
     super(props);
@@ -32,10 +33,17 @@ class IndividualLastName extends Component {
   }
 
   render() {
+
+    let inputClasses = classNames({
+        "error": this.state.lastNameError === true,
+        "last__name-valid": this.state.lastNameError === false,
+        "last__name": this.state.lastName === ''
+    })
+
     return (
       <label className="add__form-label" htmlFor="last__name">
         <span className="add__form-label__title">Фамилия</span>
-        <input className={this.state.lastNameError ? "error" : "last__name"} id="last__name" placeholder="Фамилия" onChange={this.lastNameValue}/>
+        <input className={inputClasses} id="last__name" placeholder="Фамилия" onChange={this.lastNameValue}/>
       </label>
     )
   }

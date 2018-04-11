@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-class DealRole extends Component {
+class DealRole extends React.Component {
 
   constructor(props) {
     super(props);

@@ -1,12 +1,12 @@
 @import "global/normalize.scss";
 @import "global/fonts.scss";
-@import "../Components/DealForm/dealForm.scss";
-@import "../Components/DealType/dealType.scss";
-@import "../Components/DealRole/dealRole.scss";
-@import "../Components/NameInput/nameInput.scss";
-@import "../Components/EmailInput/emailInput.scss";
-@import "../Components/Individual/individual.scss";
-@import "../Components/AddIndividual/addIndividual.scss";
+@import "./dealForm.scss";
+@import "./dealType.scss";
+@import "./dealRole.scss";
+@import "./nameInput.scss";
+@import "./emailInput.scss";
+@import "./individual.scss";
+@import "./addIndividual.scss";
 
 html {
   width: 100%;

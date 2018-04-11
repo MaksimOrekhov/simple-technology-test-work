@@ -12,8 +12,12 @@
 .name-input__title-wrapper {
   display: inline-block; }
 
+.name {
+  border-color: inherit !important; }
+
 .name-validate {
-  border-color: green; }
+  border-color: green;
+  outline: none; }
 
 .input__title {
   display: inline-block;

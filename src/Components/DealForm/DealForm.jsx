@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
-import DealType from '../DealType/DealType'
-import DealRole from '../DealRole/DealRole'
-import NameInput from '../NameInput/NameInput'
-import EmailInput from '../EmailInput/EmailInput'
-import Individual from '../Individual/Individual'
-import AddIndividual from '../AddIndividual/AddIndividual';
+import React from 'react'
+import DealType from './DealType/DealType'
+import DealRole from './DealRole/DealRole'
+import NameInput from './NameInput/NameInput'
+import EmailInput from './EmailInput/EmailInput'
+import IndividualSelect from './IndividualSelect/IndividualSelect'
+import AddIndividualForm from '../AddIndividualForm/AddIndividualForm';
 
 
-class DealForm extends Component {
+class DealForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,25 +22,28 @@ class DealForm extends Component {
       contractor: false,
       product: true,
       service: false,
-      lastName: '',
-      lastNames: [],
-      individualName: '',
-      individualNames: [],
-      middleName: '',
-      middleNames: [],
-      birthDate: '',
-      birthDates: [],
+      lastName: '', // фамилия физ лица
+      lastNames: [], // массив с фамилимями физ лиц
+      individualName: '', // имя физ лица
+      individualNames: [], // массив с именами физ лиц
+      middleName: '', // отчество физ лица
+      middleNames: [], // массив с отчествами физ лиц
+      birthDate: '', // дата рождения физ лица
+      birthDates: [], // массив с датами рождения физ лиц
       nameValidate: false, // проверка на валидность наименования товара для активации кнопки Создать
       emailValidate: false, // проверка на валидность email для активации кнопки Создать
+      location: this.props.location.pathname
     }
   }
 
+  // обработка закрытия формы создания сделки
   closeDeal = () => {
     this.setState({
       closeDeal: true
     })
   }
 
+  // обработка отображения радио-переключателей покупатель/продавец
   displayProductRole = () => {
     this.setState({
       showProductRole: true,
@@ -48,6 +51,7 @@ class DealForm extends Component {
     })
   }
 
+  // обработка отображения радио-переключателей заказчик/исполнитель
   displayServiceRole = () => {
     this.setState({
       showProductRole: false,
@@ -55,6 +59,7 @@ class DealForm extends Component {
     })
   }
 
+  // появление формы добавления физ лица
   showAddIndividual = (e) => {
     e.preventDefault();
     this.setState({
@@ -62,6 +67,7 @@ class DealForm extends Component {
     })
   }
 
+  // закрытие формы добавления физ лица
   closeAddIndividual = () => {
     this.setState({
       showAddIndividual: false
@@ -98,6 +104,7 @@ class DealForm extends Component {
     });
   }
 
+  // запись в стейт актывных радио-переключателей
   customerChecked = (e) => {
     this.setState({
       customer: true,
@@ -126,24 +133,28 @@ class DealForm extends Component {
     })
   }
 
+  // запись в стейт фамилии физ лица
   lastNameValue = (e) => {
     this.setState({
       lastName: e.target.value
     })
   }
 
+  // запись в стейт имени физ лица
   nameValue = (e) => {
     this.setState({
       individualName: e.target.value
 		});
   }
 
+  // запись в стейт отчества физ лица
   middleNameValue = (e) => {
     this.setState({
       middleName: e.target.value
     })
   }
 
+  // запись в стейт даты рождения физ лица
   dateValue = (e) => {
     this.setState({
       birthDate: e.target.value
@@ -204,7 +215,8 @@ class DealForm extends Component {
 		});
   }
 
-  submitForm = (e) => {
+
+  handleSubmit = (e) => {
     e.preventDefault();
       let data = {
         "DATA": {
@@ -228,14 +240,17 @@ class DealForm extends Component {
           }
         }
       }
-      console.log(JSON.stringify(data, ["DATA", "DEAL", "TYPE", "product", "service", "ROLE", "customer", "contractor", "NAME", "EMAIL", "INDIVIDUAL", "last_name", "individual_name", "middle_name", "birth_date"]));
+      
+      let xhr = new XMLHttpRequest();
 
-      fetch({
-        type: 'POST',
-        url: "test url"
-      })
+      let json = JSON.stringify({data});
+
+      xhr.open("POST", 'http://localhost:3000', true)
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+      xhr.send(json);
     }
-  
+        
   render() {
     return (
       <div>
@@ -247,9 +262,9 @@ class DealForm extends Component {
           <DealRole showRole={this.state.showRole} showProductRole={this.state.showProductRole} showServiceRole={this.state.showServiceRole} customerChecked={this.customerChecked} contractorChecked={this.contractorChecked}/>
           <NameInput showRole={this.state.showRole} showProductRole={this.state.showProductRole} showServiceRole={this.state.showServiceRole} nameValidate={this.nameValidate} nameNotValidate={this.nameNotValidate}/>
           <EmailInput showRole={this.state.showRole} emailValidate={this.emailValidate} emailNotValidate={this.emailNotValidate}/>
-          <Individual showRole={this.state.showRole} showAddIndividual={this.showAddIndividual} selectChange={this.selectChange} individualName={this.state.individualName} lastNames={this.state.lastNames} individualNames={this.state.individualNames} middleNames={this.state.middleNames} />
-          <AddIndividual showAddIndividual={this.state.showAddIndividual} closeAddIndividual={this.closeAddIndividual} lastNameValue={this.lastNameValue} middleNameValue={this.middleNameValue} nameValue={this.nameValue} dateValue={this.dateValue} lastName={this.state.lastName} individualName={this.state.individualName} middleName={this.state.middleName} lastNames={this.state.lastNames} individualNames={this.state.individualNames} middleNames={this.state.middleNames} sendLastName={this.sendLastName} sendName={this.sendName} sendMiddleName={this.sendMiddleName} sendBirthDate={this.sendBirthDate}/>
-          <button disabled={!this.state.nameValidate || !this.state.emailValidate} className="submit__button" type="submit" onClick={this.submitForm}>Создать</button>
+          <IndividualSelect showRole={this.state.showRole} showAddIndividual={this.showAddIndividual} selectChange={this.selectChange} individualName={this.state.individualName} lastNames={this.state.lastNames} individualNames={this.state.individualNames} middleNames={this.state.middleNames} />
+          <AddIndividualForm showAddIndividual={this.state.showAddIndividual} closeAddIndividual={this.closeAddIndividual} lastNameValue={this.lastNameValue} middleNameValue={this.middleNameValue} nameValue={this.nameValue} dateValue={this.dateValue} lastName={this.state.lastName} individualName={this.state.individualName} middleName={this.state.middleName} lastNames={this.state.lastNames} individualNames={this.state.individualNames} middleNames={this.state.middleNames} sendLastName={this.sendLastName} sendName={this.sendName} sendMiddleName={this.sendMiddleName} sendBirthDate={this.sendBirthDate} location={this.state.location}/>
+          <button disabled={!this.state.nameValidate || !this.state.emailValidate} className="submit__button" type="submit" onClick={this.handleSubmit}>Создать</button>
          </form>
         </div>
       </div>

@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react'
 
 
-class DealType extends Component {
+class DealType extends React.Component {
 
   constructor(props) {
     super(props);

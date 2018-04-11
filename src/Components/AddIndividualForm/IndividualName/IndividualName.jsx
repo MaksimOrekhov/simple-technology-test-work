@@ -1,6 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react';
+import classNames from 'classnames';
 
-class IndividualName extends Component {
+class IndividualName extends React.Component {
 
   constructor(props) {
     super(props);
@@ -32,10 +33,17 @@ class IndividualName extends Component {
   }
 
   render() {
+
+    let inputClasses = classNames({
+        "error": this.state.nameError === true,
+        "name-valid": this.state.nameError === false,
+        "name": this.state.name === ''
+    })
+
     return (
       <label className="add__form-label" htmlFor="name">
       <span className="add__form-label__title">Имя</span>
-      <input id="name" className={this.state.nameError ? "error" : "name"} placeholder="Имя" onChange={this.nameValue}/>
+      <input id="name" className={inputClasses} placeholder="Имя" onChange={this.nameValue}/>
       </label>
     )
   }

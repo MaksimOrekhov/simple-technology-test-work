@@ -4,6 +4,9 @@
   .email-input__wrapper-hidden {
     display: none; }
 
+.email {
+  border-color: inherit !important; }
+
 .email-input__title {
   margin-right: 20px;
   position: relative; }
@@ -14,7 +17,7 @@
   display: flex;
   justify-content: space-between; }
 
-.email {
+.email-valid {
   position: relative;
   outline: none;
   border-color: green; }

@@ -484,8 +484,12 @@ template {
 .name-input__title-wrapper {
   display: inline-block; }
 
+.name {
+  border-color: inherit !important; }
+
 .name-validate {
-  border-color: green; }
+  border-color: green;
+  outline: none; }
 
 .input__title {
   display: inline-block;
@@ -499,6 +503,9 @@ template {
   .email-input__wrapper-hidden {
     display: none; }
 
+.email {
+  border-color: inherit !important; }
+
 .email-input__title {
   margin-right: 20px;
   position: relative; }
@@ -509,7 +516,7 @@ template {
   display: flex;
   justify-content: space-between; }
 
-.email {
+.email-valid {
   position: relative;
   outline: none;
   border-color: green; }
@@ -590,11 +597,16 @@ template {
     .add__form-label__title {
       margin-right: 30px; }
 
+.last__name-valid,
+.name-valid,
+.middle__name-valid {
+  outline: none;
+  border-color: green; }
+
 .last__name,
 .name,
 .middle__name {
-  outline: none;
-  border-color: green; }
+  border-color: inherit !important; }
 
 .error {
   border-color: red;

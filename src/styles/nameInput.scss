@@ -16,8 +16,13 @@
   display: inline-block;
 }
 
+.name {
+  border-color: inherit !important;
+}
+
 .name-validate {
   border-color: green;
+  outline: none;
 }
 
 .input__title {
